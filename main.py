@@ -15,7 +15,7 @@ import os
 # my_email = os.environ.get("GMAIL_USER")
 # password = os.environ.get("GMAIL_ADDRESS")
 
-# app = Flask(__name__)
+app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
@@ -23,15 +23,15 @@ gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=Fa
 
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL_2?sslmode=require')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-# db = SQLAlchemy(app)
-db = SQLAlchemy()
+db = SQLAlchemy(app)
+# db = SQLAlchemy()
 
-def create_app():
-    app = Flask(__name__)
-    db.init_app(app)
-    return app
+# def create_app():
+#     app = Flask(__name__)
+#     db.init_app(app)
+#     return app
 
 
 

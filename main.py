@@ -10,10 +10,10 @@ from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 from functools import wraps
 import smtplib
-import os
+# import os
 
-my_email = os.environ.get("GMAIL_USER")
-password = os.environ.get("GMAIL_ADDRESS")
+# my_email = os.environ.get("GMAIL_USER")
+# password = os.environ.get("GMAIL_ADDRESS")
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
@@ -192,25 +192,9 @@ def about():
     return render_template("about.html", current_user=current_user)
 
 
-@app.route('/contact', methods=['GET', 'POST'])
-def receive_data():
-    if request.method == 'POST':
-        name = request.form["name"]
-        email = request.form["email"]
-        phone = request.form["phone-number"]
-        message = request.form["message"]
-        email_content = f"Name: {name}\nEmail: {email}\nPhone number: {phone}\n{message}"
-        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
-            connection.starttls()
-            connection.login(user=my_email, password=password)
-            connection.sendmail(
-                from_addr=my_email,
-                to_addrs="cohoichota@gmail.com",
-                msg=f"Subject:New message\n\n{email_content}"
-            )
-        return render_template("contact.html", msg_sent=True, current_user=current_user)
-    else:
-        return render_template("contact.html", msg_sent=False, current_user=current_user)
+@app.route('/contact')
+def contact():
+    return render_template("contact.html", current_user=current_user)
 
 
 @app.route("/new-post", methods=["GET", "POST"])
